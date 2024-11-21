@@ -4,8 +4,8 @@
 
 
 
-#ifndef TINY_STL_ITERATOR_H
-#define TINY_STL_ITERATOR_H
+#ifndef TINY_STL_ITERATOR_HPP
+#define TINY_STL_ITERATOR_HPP
 
 #include <cstddef>
 
@@ -39,7 +39,7 @@ namespace Gyanis {
         typedef typename Iterator::reference reference;
     };
 
-/*针对原生指针进行偏特化*/
+    /**针对原生指针进行偏特化*/
     template<typename T>
     struct iterator_traits<T *> {
         typedef random_access_iterator_tag iterator_category;
@@ -48,7 +48,7 @@ namespace Gyanis {
         typedef T *pointer;
         typedef T &reference;
     };
-/*对const原生指针进行偏特化*/
+    /**对const原生指针进行偏特化*/
     template<typename T>
     struct iterator_traits<const T *> {
         typedef random_access_iterator_tag iterator_category;
@@ -58,27 +58,27 @@ namespace Gyanis {
         typedef T &reference;
     };
 
-/*获取迭代器的类型*/
+    /**获取迭代器的类型*/
     template<typename Iterator>
     inline typename iterator_traits<Iterator>::iterator_category iterator_category(const Iterator &) {
         typedef typename iterator_traits<Iterator>::iterator_category category;
         return category();
     }
 
-/*获取迭代器的difference type*/
+    /**获取迭代器的difference type*/
     template<typename Iterator>
     inline typename iterator_traits<Iterator>::difference_type *difference_type(const Iterator &) {
         return static_cast<typename iterator_traits<Iterator>::difference_type *> (0);
     }
 
-/*获取迭代器的value type
- 返回指针而不是实际值可以简化实现，避免不必要的构造开销，同时满足类型信息提取的需求*/
+    /**获取迭代器的value type
+    返回指针而不是实际值可以简化实现，避免不必要的构造开销，同时满足类型信息提取的需求*/
     template<typename Iterator>
     inline typename iterator_traits<Iterator>::value_type *value_type(const Iterator &) {
         return static_cast<typename iterator_traits<Iterator>::value_type *> (0);
     }
 
-    /*以下是整组distance函数*/
+    /**以下是整组distance函数*/
     template<typename InputIterator>
     inline typename iterator_traits<InputIterator>::difference_type
     _distance(InputIterator first, InputIterator last, input_iterator_tag) {
@@ -103,7 +103,7 @@ namespace Gyanis {
         return _distance(first, last, category());
     }
 
-    /*以下是整组advance函数*/
+    /**以下是整组advance函数*/
     template<typename InputIterator, typename Distance>
     inline void _advance(InputIterator &i, Distance n, input_iterator_tag) {
         while (n--)
@@ -131,8 +131,8 @@ namespace Gyanis {
         _advance(i, n, iterator_category(i));
     }
 
-    /*另一种实现方式*/
-/*    template<typename InputIterator, typename Distance>
+    /**另一种实现方式*/
+    /**    template<typename InputIterator, typename Distance>
     inline void advance(InputIterator &i, Distance n) {
         typedef typename iterator_traits<InputIterator>::iterator_category category;
         _advance(i, n, category());
@@ -274,4 +274,4 @@ namespace Gyanis {
 
 }
 
-#endif //TINY_STL_ITERATOR_H
+#endif //TINY_STL_ITERATOR_HPP
