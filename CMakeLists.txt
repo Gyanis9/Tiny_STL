@@ -7,4 +7,5 @@ add_executable(Tiny_STL main.cpp
         allocator/lib/allocator.hpp
         test.h
         iterator/lib/iterator.hpp
-        allocator/lib/construct.hpp)
+        allocator/lib/construct.hpp
+        sequence_container/lib/vector.hpp)

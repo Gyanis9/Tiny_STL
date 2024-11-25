@@ -174,10 +174,10 @@ namespace Gyanis {
             size_t bytes_to_get = 2 * total_bytes + ROUND_UP(heap_size >> 4);
             if (bytes_left > 0) {
                 obj *volatile *my_free_list = free_list + FREELIST_INDEX(bytes_left);
-                (static_cast<obj *>(start_free))->free_list_link = *my_free_list;
-                *my_free_list = static_cast<obj *>(start_free);
+                ((obj *) (start_free))->free_list_link = *my_free_list;
+                *my_free_list = (obj *) (start_free);
             }
-            start_free = static_cast<char *>(malloc(bytes_to_get));
+            start_free = (char *) (malloc(bytes_to_get));
             if (nullptr == start_free) {
                 int i;
                 obj *volatile *my_free_list, *p;
@@ -187,7 +187,7 @@ namespace Gyanis {
                     p = *my_free_list;
                     if (nullptr != p) {
                         *my_free_list = p->free_list_link;
-                        start_free = static_cast<char *>(p);
+                        start_free = (char *) (p);
                         end_free = start_free + i;
                         return (chunk_alloc(size, nobjs));
 
@@ -212,11 +212,11 @@ namespace Gyanis {
         if (1 == nobjs)
             return (chunk);
         my_free_list = free_list + FREELIST_INDEX(n);
-        result = static_cast<obj *>(chunk);
-        *my_free_list = next_obj = static_cast<obj *>(chunk + n);
+        result = (obj *) chunk;
+        *my_free_list = next_obj = (obj *) (chunk + n);
         for (i = 1;; ++i) {
             current_obj = next_obj;
-            next_obj = static_cast<obj *>(static_cast<char *>(next_obj) + n);
+            next_obj = (obj *) ((char *) next_obj + n);
             if (nobjs - 1 == i) {
                 current_obj->free_list_link = nullptr;
                 break;
@@ -260,7 +260,7 @@ namespace Gyanis {
     template<bool threads, int ints>
     void *_default_alloc_template<threads, ints>::allocate(size_t n) {
         obj *volatile *my_free_list;
-        obj *result;
+        obj *result = nullptr;
         if (n > static_cast<size_t>(_MAX_BYTES))
             return (malloc_alloc::allocate(n));
         my_free_list = free_list + FREELIST_INDEX(n);
@@ -279,7 +279,7 @@ namespace Gyanis {
     class simple_alloc {
     public:
         static T *allocate(size_t n) {
-            return 0 == n ? 0 : static_cast<T *>(Alloc::allocate(n * sizeof(T)));
+            return 0 == n ? 0 : (T *) (Alloc::allocate(n * sizeof(T)));
         }
 
         static T *allocate(void) {
