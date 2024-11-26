@@ -3,5 +3,7 @@
 
 
 int main() {
-    vector_test();
+//    vector_test();
+    list_tets();
 }
+

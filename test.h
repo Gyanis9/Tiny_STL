@@ -7,7 +7,7 @@
 
 #include "sequence_container/lib/vector.hpp"
 #include <iostream>
-
+#include "sequence_container/lib/list.hpp"
 
 void vector_test() {
     int i;
@@ -107,6 +107,49 @@ void vector_test() {
     for (int j = 0; j < iv.size(); ++j)
         std::cout << iv[j] << " ";
     std::cout << std::endl;
+}
+
+void list_tets() {
+    std::cout << "-----------------" << std::endl;
+    std::cout << "创建一个list对象" << std::endl;
+    int i;
+    Gyanis::list<int> iList;
+    std::cout << "size = " << iList.size() << std::endl;
+
+    std::cout << "-----------------" << std::endl;
+    std::cout << "依次插入0、1、2、3、4" << std::endl;
+    iList.push_back(0);
+    iList.push_back(1);
+    iList.push_back(2);
+    iList.push_back(3);
+    iList.push_back(4);
+    std::cout << "size = " << iList.size() << std::endl;
+
+    std::cout << "-----------------" << std::endl;
+    std::cout << "遍历list容器" << std::endl;
+    Gyanis::list<int>::iterator ite;
+    for (ite = iList.begin(); ite != iList.end(); ++ite)
+        std::cout << *ite << " ";
+    std::cout << std::endl;
+    std::cout << "-----------------" << std::endl;
+    std::cout << "查找元素 3 并在其之前插入元素 99 " << std::endl;
+    ite = std::find(iList.begin(), iList.end(), 3);
+    if (ite != nullptr)
+        iList.insert(ite, 99);
+    std::cout << "size = " << iList.size() << std::endl;
+    std::cout << *ite << std::endl;
+    for (ite = iList.begin(); ite != iList.end(); ++ite)
+        std::cout << *ite << " ";
+    std::cout << std::endl;
+    std::cout << "-----------------" << std::endl;
+    std::cout << "查找元素 1 并删除" << std::endl;
+    ite = std::find(iList.begin(), iList.end(), 1);
+    if (ite != nullptr)
+        std::cout << *(iList.erase(ite)) << std::endl;
+    for (ite = iList.begin(); ite != iList.end(); ++ite)
+        std::cout << *ite << " ";
+    std::cout << std::endl;
+    std::cout << "-----------------" << std::endl;
 }
 
 
