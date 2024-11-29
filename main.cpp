@@ -5,6 +5,6 @@
 int main() {
 //    vector_test();
 //    list_test();
-    stack_test();
+    queue_test();
 }
 

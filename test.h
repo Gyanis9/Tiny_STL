@@ -10,7 +10,7 @@
 #include "sequence_container/lib/list.hpp"
 #include "sequence_container/lib/deque.hpp"
 #include "sequence_container/lib/stack.hpp"
-
+#include "sequence_container/lib/queue.hpp"
 
 void vector_test() {
     int i;
@@ -237,5 +237,31 @@ void stack_test() {
     std::cout << istack.top() << std::endl;
     std::cout << istack.size() << std::endl;
 }
+
+void queue_test() {
+    std::cout << "----------------------------" << std::endl;
+    std::cout << "创建一个queue对象并插入1、3、5、7" << std::endl;
+    Gyanis::queue<int, Gyanis::list<int>> iqueue;
+    iqueue.push(1);
+    iqueue.push(3);
+    iqueue.push(5);
+    iqueue.push(7);
+    std::cout << "----------------------------" << std::endl;
+    std::cout << "查询queue大小以及队头元素" << std::endl;
+    std::cout << "size = " << iqueue.size() << std::endl;
+    std::cout << "front = " << iqueue.front() << std::endl;
+    std::cout << "----------------------------" << std::endl;
+    std::cout << "依次出队并查询队头元素" << std::endl;
+    iqueue.pop();
+    std::cout << "front = " << iqueue.front() << std::endl;
+    iqueue.pop();
+    std::cout << "front = " << iqueue.front() << std::endl;
+    iqueue.pop();
+    std::cout << "front = " << iqueue.front() << std::endl;
+    std::cout << "----------------------------" << std::endl;
+    std::cout << "查询队伍大小" << std::endl;
+    std::cout << "size = " << iqueue.size() << std::endl;
+}
+
 
 #endif //TINY_STL_TEST_H
