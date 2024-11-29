@@ -22,6 +22,7 @@ namespace Gyanis {
     template<typename T, typename Ref, typename Ptr>
     struct _list_iterator {
         typedef _list_iterator<T, T &, T *> iterator;
+        typedef _list_iterator<T, const T &, const T *> const_iterator;
         typedef _list_iterator<T, Ref, Ptr> self;
 
         typedef bidirectional_iterator_tag iterator_category;
@@ -76,16 +77,19 @@ namespace Gyanis {
     template<typename T, typename Alloc=alloc>
     class list {
         /**基本数据重命名*/
-    protected:
+    public:
         typedef T value_type;
         typedef size_t size_type;
         typedef value_type &reference;
+        typedef const value_type &const_reference;
         typedef value_type *pointer;
+    protected:
         typedef _list_node<value_type> list_node;
         typedef simple_alloc<list_node, Alloc> list_node_allocator;
     public:
         typedef list_node *link_type;
         typedef _list_iterator<value_type, reference, pointer> iterator;
+        typedef _list_iterator<const value_type, reference, const pointer> const_iterator;
     protected:
         link_type node;
 

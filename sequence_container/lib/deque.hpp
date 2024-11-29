@@ -126,12 +126,14 @@ namespace Gyanis {
         typedef T value_type;
         typedef value_type *pointer;
         typedef value_type &reference;
+        typedef const value_type &const_reference;
         typedef size_t size_type;
         typedef ptrdiff_t difference_type;
 
     public:
         /**迭代器*/
         typedef _deque_iterator<T, reference, pointer, BufSize> iterator;
+        typedef _deque_iterator<T, reference, const pointer, BufSize> const_iterator;
 
     protected:
         /**map指针以及内存池分配器*/

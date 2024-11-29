@@ -5,11 +5,12 @@
 #ifndef TINY_STL_TEST_H
 #define TINY_STL_TEST_H
 
-#include "sequence_container/lib/vector.hpp"
 #include <iostream>
+#include "sequence_container/lib/vector.hpp"
 #include "sequence_container/lib/list.hpp"
 #include "sequence_container/lib/deque.hpp"
-#include "allocator/lib/allocator.hpp"
+#include "sequence_container/lib/stack.hpp"
+
 
 void vector_test() {
     int i;
@@ -158,7 +159,7 @@ void list_test() {
 void deque_test() {
     std::cout << "------------------------" << std::endl;
     std::cout << "创建一个deque对象" << std::endl;
-    Gyanis::deque<int, Gyanis::alloc,8> ideq(20, 9);
+    Gyanis::deque<int, Gyanis::alloc, 8> ideq(20, 9);
     std::cout << "size = " << ideq.size() << std::endl;
     for (int i = 0; i < ideq.size(); ++i)
         std::cout << ideq[i] << " ";
@@ -211,6 +212,30 @@ void deque_test() {
         std::cout << ideq[i] << " ";
     std::cout << std::endl;
     std::cout << "------------------------" << std::endl;
+}
+
+
+void stack_test() {
+    std::cout << "---------------------" << std::endl;
+    std::cout << "创建stack对象并插入1、3、5、7" << std::endl;
+    Gyanis::stack<int, Gyanis::list<int>> istack;
+    istack.push(1);
+    istack.push(3);
+    istack.push(5);
+    istack.push(7);
+    std::cout << "---------------------" << std::endl;
+    std::cout << "查询stack大小以及top元素" << std::endl;
+    std::cout << istack.size() << std::endl;
+    std::cout << istack.top() << std::endl;
+    std::cout << "---------------------" << std::endl;
+    std::cout << "依次退栈并查询top元素" << std::endl;
+    istack.pop();
+    std::cout << istack.top() << std::endl;
+    istack.pop();
+    std::cout << istack.top() << std::endl;
+    istack.pop();
+    std::cout << istack.top() << std::endl;
+    std::cout << istack.size() << std::endl;
 }
 
 #endif //TINY_STL_TEST_H
