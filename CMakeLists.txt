@@ -9,4 +9,5 @@ add_executable(Tiny_STL main.cpp
         iterator/lib/iterator.hpp
         allocator/lib/construct.hpp
         sequence_container/lib/vector.hpp
-        sequence_container/lib/list.hpp)
+        sequence_container/lib/list.hpp
+        sequence_container/lib/deque.hpp)

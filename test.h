@@ -8,6 +8,8 @@
 #include "sequence_container/lib/vector.hpp"
 #include <iostream>
 #include "sequence_container/lib/list.hpp"
+#include "sequence_container/lib/deque.hpp"
+#include "allocator/lib/allocator.hpp"
 
 void vector_test() {
     int i;
@@ -109,7 +111,7 @@ void vector_test() {
     std::cout << std::endl;
 }
 
-void list_tets() {
+void list_test() {
     std::cout << "-----------------" << std::endl;
     std::cout << "创建一个list对象" << std::endl;
     int i;
@@ -152,5 +154,63 @@ void list_tets() {
     std::cout << "-----------------" << std::endl;
 }
 
+
+void deque_test() {
+    std::cout << "------------------------" << std::endl;
+    std::cout << "创建一个deque对象" << std::endl;
+    Gyanis::deque<int, Gyanis::alloc,8> ideq(20, 9);
+    std::cout << "size = " << ideq.size() << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "为每个元素设置新值" << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        ideq[i] = i;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "尾端插入三个元素，其值为0，1，2" << std::endl;
+    for (int i = 0; i < 3; ++i)
+        ideq.push_back(i);
+    std::cout << "size = " << ideq.size() << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "尾端插入三个元素，其值为3" << std::endl;
+    ideq.push_back(3);
+    std::cout << "size = " << ideq.size() << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "前端插入1个元素，其值为99" << std::endl;
+    ideq.push_front(99);
+    std::cout << "size = " << ideq.size() << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "前端插入2个元素，其值为98,97" << std::endl;
+    ideq.push_front(98);
+    ideq.push_front(97);
+    std::cout << "size = " << ideq.size() << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "查找一个元素99" << std::endl;
+    Gyanis::deque<int, Gyanis::alloc, 8>::iterator itr;
+    itr = std::find(ideq.begin(), ideq.end(), 99);
+    std::cout << *itr << std::endl;
+    std::cout << *(itr.cur) << std::endl;
+    std::cout << "size = " << ideq.size() << std::endl;
+    for (int i = 0; i < ideq.size(); ++i)
+        std::cout << ideq[i] << " ";
+    std::cout << std::endl;
+    std::cout << "------------------------" << std::endl;
+}
 
 #endif //TINY_STL_TEST_H

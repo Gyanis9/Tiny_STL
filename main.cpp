@@ -4,6 +4,7 @@
 
 int main() {
 //    vector_test();
-    list_tets();
+//    list_test();
+    deque_test();
 }
 
