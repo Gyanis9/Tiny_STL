@@ -11,6 +11,7 @@
 #include "sequence_container/lib/deque.hpp"
 #include "sequence_container/lib/stack.hpp"
 #include "sequence_container/lib/queue.hpp"
+#include "sequence_container/lib/heap.hpp"
 
 void vector_test() {
     int i;
@@ -261,6 +262,41 @@ void queue_test() {
     std::cout << "----------------------------" << std::endl;
     std::cout << "查询队伍大小" << std::endl;
     std::cout << "size = " << iqueue.size() << std::endl;
+}
+
+#include <vector>
+
+void heap_test() {
+    int ia[9] = {0, 1, 2, 3, 4, 8, 9, 3, 5};
+    std::vector<int> ivec(ia, ia + 9);
+    std::cout << "-------------------------------------------" << std::endl;
+    std::cout << "创建堆并打印" << std::endl;
+    Gyanis::make_heap(ivec.begin(), ivec.end());
+    for (const auto &x: ivec)
+        std::cout << x << " ";
+    std::cout << std::endl;
+    std::cout << "-------------------------------------------" << std::endl;
+    std::cout << "插入元素7" << std::endl;
+    ivec.push_back(7);
+    Gyanis::push_heap(ivec.begin(), ivec.end());
+    for (const auto &x: ivec)
+        std::cout << x << " ";
+    std::cout << std::endl;
+    std::cout << "-------------------------------------------" << std::endl;
+    std::cout << "-------------------------------------------" << std::endl;
+    ivec.push_back(7);
+    Gyanis::pop_heap(ivec.begin(), ivec.end());
+    std::cout << ivec.back() << std::endl;
+    ivec.pop_back();
+    for (const auto &x: ivec)
+        std::cout << x << " ";
+    std::cout << std::endl;
+    std::cout << "-------------------------------------------" << std::endl;
+    std::cout << "-------------------------------------------" << std::endl;
+//    Gyanis::sort_heap(ivec.begin(), ivec.end());
+    for (const auto &x: ivec)
+        std::cout << x << " ";
+    std::cout << std::endl;
 }
 
 

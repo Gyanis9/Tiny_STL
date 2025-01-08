@@ -149,8 +149,9 @@ namespace Gyanis {
 
     template<bool threads, int ints>
     typename _default_alloc_template<threads, ints>::obj *volatile _default_alloc_template<threads, ints>::free_list[_NFREELISTS] = {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0};
+            nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+            nullptr, nullptr, nullptr,
+            nullptr};
 
 
     template<bool threads, int ints>

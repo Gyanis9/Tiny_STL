@@ -12,4 +12,5 @@ add_executable(Tiny_STL main.cpp
         sequence_container/lib/list.hpp
         sequence_container/lib/deque.hpp
         sequence_container/lib/stack.hpp
-        sequence_container/lib/queue.hpp)
+        sequence_container/lib/queue.hpp
+        sequence_container/lib/heap.hpp)
