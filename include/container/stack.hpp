@@ -2,19 +2,19 @@
 // Created by guo on 24-11-29.
 //
 
-#ifndef TINY_STL_QUEUE_HPP
-#define TINY_STL_QUEUE_HPP
+#ifndef TINY_STL_STACK_HPP
+#define TINY_STL_STACK_HPP
 
-#include "list.hpp"
+#include "../iiterator/iterator.hpp"
 #include "deque.hpp"
-#include "../../iterator/lib/iterator.hpp"
+#include "list.hpp"
 
-namespace Gyanis {
+namespace Tiny {
     template<typename T, typename Sequence=deque<T>>
-    class queue {
-        friend bool operator==(const queue &, const queue &);
+    class stack {
+        friend bool operator==(const stack &, const stack &);
 
-        friend bool operator<(const queue &, const queue &);
+        friend bool operator<(const stack &, const stack &);
 
     public:
         typedef typename Sequence::value_type value_type;
@@ -30,25 +30,25 @@ namespace Gyanis {
 
         size_type size() const { return c.size(); }
 
-        reference front() { return c.front(); }
+        reference top() { return c.back(); }
 
-        const_reference front() const { return c.front(); }
+        const_reference top() const { return c.back(); }
 
         void push(const value_type &x) { c.push_back(x); }
 
-        void pop() { c.pop_front(); }
+        void pop() { c.pop_back(); }
     };
 
     template<typename T, typename Sequence>
-    bool operator==(const queue<T, Sequence> &x, const queue<T, Sequence> &y) {
+    bool operator==(const stack<T, Sequence> &x, const stack<T, Sequence> &y) {
         return x.c == y.c;
     }
 
     template<typename T, typename Sequence>
-    bool operator<(const queue<T, Sequence> &x, const queue<T, Sequence> &y) {
+    bool operator<(const stack<T, Sequence> &x, const stack<T, Sequence> &y) {
         return x.c < y.c;
     }
 }
 
 
-#endif //TINY_STL_QUEUE_HPP
+#endif //TINY_STL_STACK_HPP

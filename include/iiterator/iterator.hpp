@@ -9,7 +9,7 @@
 
 #include <cstddef>
 
-namespace Gyanis {
+namespace Tiny {
     struct input_iterator_tag {
     };
     struct output_iterator_tag {

@@ -5,10 +5,10 @@
 #ifndef TINY_STL_LIST_HPP
 #define TINY_STL_LIST_HPP
 
-#include "../../allocator/lib/allocator.hpp"
+#include "../allocator/allocator.hpp"
 
 
-namespace Gyanis {
+namespace Tiny {
     /**节点*/
     template<typename T>
     struct _list_node {

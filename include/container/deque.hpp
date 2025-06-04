@@ -5,9 +5,9 @@
 #ifndef TINY_STL_DEQUE_HPP
 #define TINY_STL_DEQUE_HPP
 
-#include "../../allocator/lib/allocator.hpp"
+#include "../allocator/allocator.hpp"
 
-namespace Gyanis {
+namespace Tiny {
     inline size_t _deque_buf_size(size_t n, size_t sz) {
         return n != 0 ? n : (sz < 512 ? static_cast<size_t>(512 / sz) : static_cast<size_t>(1));
     }

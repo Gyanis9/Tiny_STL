@@ -5,9 +5,9 @@
 #ifndef TINY_STL_VECTOR_HPP
 #define TINY_STL_VECTOR_HPP
 
-#include "../../allocator/lib/allocator.hpp"
+#include "../allocator/allocator.hpp"
 
-namespace Gyanis {
+namespace Tiny {
 
     template<typename T, typename Alloc=alloc>
     class vector {

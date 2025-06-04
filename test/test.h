@@ -6,18 +6,18 @@
 #define TINY_STL_TEST_H
 
 #include <iostream>
-#include "sequence_container/lib/vector.hpp"
-#include "sequence_container/lib/list.hpp"
-#include "sequence_container/lib/deque.hpp"
-#include "sequence_container/lib/stack.hpp"
-#include "sequence_container/lib/queue.hpp"
-#include "sequence_container/lib/heap.hpp"
+#include "../include/container/vector.hpp"
+#include "../include/container/list.hpp"
+#include "../include/container/deque.hpp"
+#include "../include/container/stack.hpp"
+#include "../include/container/queue.hpp"
+#include "../include/container/heap.hpp"
 
 void vector_test() {
     int i;
     std::cout << "-------------------------" << std::endl;
     std::cout << "建立一个vector容器，大小为2，数值为9" << std::endl;
-    Gyanis::vector<int> iv(2, 9);
+    Tiny::vector<int> iv(2, 9);
     std::cout << "size = " << iv.size() << std::endl;
     std::cout << "capacity = " << iv.capacity() << std::endl;
     for (int j = 0; j < iv.size(); ++j)
@@ -117,7 +117,7 @@ void list_test() {
     std::cout << "-----------------" << std::endl;
     std::cout << "创建一个list对象" << std::endl;
     int i;
-    Gyanis::list<int> iList;
+    Tiny::list<int> iList;
     std::cout << "size = " << iList.size() << std::endl;
 
     std::cout << "-----------------" << std::endl;
@@ -131,7 +131,7 @@ void list_test() {
 
     std::cout << "-----------------" << std::endl;
     std::cout << "遍历list容器" << std::endl;
-    Gyanis::list<int>::iterator ite;
+    Tiny::list<int>::iterator ite;
     for (ite = iList.begin(); ite != iList.end(); ++ite)
         std::cout << *ite << " ";
     std::cout << std::endl;
@@ -160,7 +160,7 @@ void list_test() {
 void deque_test() {
     std::cout << "------------------------" << std::endl;
     std::cout << "创建一个deque对象" << std::endl;
-    Gyanis::deque<int, Gyanis::alloc, 8> ideq(20, 9);
+    Tiny::deque<int, Tiny::alloc, 8> ideq(20, 9);
     std::cout << "size = " << ideq.size() << std::endl;
     for (int i = 0; i < ideq.size(); ++i)
         std::cout << ideq[i] << " ";
@@ -204,7 +204,7 @@ void deque_test() {
     std::cout << std::endl;
     std::cout << "------------------------" << std::endl;
     std::cout << "查找一个元素99" << std::endl;
-    Gyanis::deque<int, Gyanis::alloc, 8>::iterator itr;
+    Tiny::deque<int, Tiny::alloc, 8>::iterator itr;
     itr = std::find(ideq.begin(), ideq.end(), 99);
     std::cout << *itr << std::endl;
     std::cout << *(itr.cur) << std::endl;
@@ -219,7 +219,7 @@ void deque_test() {
 void stack_test() {
     std::cout << "---------------------" << std::endl;
     std::cout << "创建stack对象并插入1、3、5、7" << std::endl;
-    Gyanis::stack<int, Gyanis::list<int>> istack;
+    Tiny::stack<int, Tiny::list<int>> istack;
     istack.push(1);
     istack.push(3);
     istack.push(5);
@@ -242,7 +242,7 @@ void stack_test() {
 void queue_test() {
     std::cout << "----------------------------" << std::endl;
     std::cout << "创建一个queue对象并插入1、3、5、7" << std::endl;
-    Gyanis::queue<int, Gyanis::list<int>> iqueue;
+    Tiny::queue<int, Tiny::list<int>> iqueue;
     iqueue.push(1);
     iqueue.push(3);
     iqueue.push(5);
@@ -271,21 +271,21 @@ void heap_test() {
     std::vector<int> ivec(ia, ia + 9);
     std::cout << "-------------------------------------------" << std::endl;
     std::cout << "创建堆并打印" << std::endl;
-    Gyanis::make_heap(ivec.begin(), ivec.end());
+    Tiny::make_heap(ivec.begin(), ivec.end());
     for (const auto &x: ivec)
         std::cout << x << " ";
     std::cout << std::endl;
     std::cout << "-------------------------------------------" << std::endl;
     std::cout << "插入元素7" << std::endl;
     ivec.push_back(7);
-    Gyanis::push_heap(ivec.begin(), ivec.end());
+    Tiny::push_heap(ivec.begin(), ivec.end());
     for (const auto &x: ivec)
         std::cout << x << " ";
     std::cout << std::endl;
     std::cout << "-------------------------------------------" << std::endl;
     std::cout << "-------------------------------------------" << std::endl;
     ivec.push_back(7);
-    Gyanis::pop_heap(ivec.begin(), ivec.end());
+    Tiny::pop_heap(ivec.begin(), ivec.end());
     std::cout << ivec.back() << std::endl;
     ivec.pop_back();
     for (const auto &x: ivec)
@@ -293,7 +293,7 @@ void heap_test() {
     std::cout << std::endl;
     std::cout << "-------------------------------------------" << std::endl;
     std::cout << "-------------------------------------------" << std::endl;
-//    Gyanis::sort_heap(ivec.begin(), ivec.end());
+//    Tiny::sort_heap(ivec.begin(), ivec.end());
     for (const auto &x: ivec)
         std::cout << x << " ";
     std::cout << std::endl;

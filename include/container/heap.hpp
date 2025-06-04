@@ -5,10 +5,10 @@
 #ifndef TINY_STL_HEAP_HPP
 #define TINY_STL_HEAP_HPP
 
-#include "../../allocator/lib/allocator.hpp"
-#include "../../iterator/lib/iterator.hpp"
+#include "../allocator/allocator.hpp"
+#include "../iiterator/iterator.hpp"
 
-namespace Gyanis {
+namespace Tiny {
     template<typename RandomAccessIterator, typename Distance, typename T>
     inline void _push_heap(RandomAccessIterator first, Distance holeIndex, Distance topIndex, T value) {
         Distance parent = (holeIndex - 1) / 2;/**找出父节点*/
