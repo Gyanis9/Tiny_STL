@@ -63,7 +63,9 @@ namespace Tiny
             const size_t next = (tail + 1) & (Capacity - 1);
 
             if (next == m_head.load(std::memory_order_acquire))
+            {
                 return false;
+            }
 
             try
             {
@@ -88,7 +90,9 @@ namespace Tiny
             const size_t head = m_head.load(std::memory_order_relaxed);
             // 队空
             if (head == m_tail.load(std::memory_order_acquire))
+            {
                 return false;
+            }
 
             T* elem = reinterpret_cast<T*>(&m_buffer[head]);
             item = std::move(*elem); // 移动元素
