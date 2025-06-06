@@ -55,32 +55,30 @@ namespace Tiny
         /**
          * @brief 完美转发入队，原地构造元素到缓冲区尾部
          */
-        template <typename U>
-        bool Emplace(U&& item)
+        template <typename... Args>
+        bool Emplace(Args&&... args)
         {
-            static_assert(std::is_constructible_v<T, U&&>, "T must be constructible from U&&");
-
+            static_assert(std::is_constructible_v<T, Args...>);
             const size_t tail = m_tail.load(std::memory_order_relaxed);
             const size_t next = (tail + 1) & (Capacity - 1);
 
-            // 队满，无法入队
             if (next == m_head.load(std::memory_order_acquire))
                 return false;
 
             try
             {
-                // 原地构造新元素
-                new(&m_buffer[tail]) T(std::forward<U>(item));
+                // 完美转发任意数量参数
+                new(&m_buffer[tail]) T(std::forward<Args>(args)...);
             }
             catch (...)
             {
                 return false;
             }
 
-            // 推进尾指针
             m_tail.store(next, std::memory_order_release);
             return true;
         }
+
 
         /**
          * @brief 出队，将队首元素移动到item中，并析构原始对象
