@@ -1,4 +1,4 @@
-#include "ThreadPool.h"
+#include "utility/ThreadPool.h"
 #include <iostream>
 
 namespace Tiny
@@ -52,8 +52,7 @@ namespace Tiny
             for (uint32_t i = 0; i < numThreads; ++i)
             {
                 m_threads.emplace_back(std::make_unique<std::thread>(
-                    [this] { ThreadFunc(); },
-                    m_name + "-" + std::to_string(i + 1)
+                    [this]() { ThreadFunc(); }
                 ));
             }
         }
