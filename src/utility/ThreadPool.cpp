@@ -10,7 +10,7 @@ namespace Tiny
 
     ThreadPool::~ThreadPool()
     {
-        if (m_isRunning)
+        if (m_isRunning.load(std::memory_order_acquire))
         {
             stop();
         }
@@ -19,7 +19,7 @@ namespace Tiny
     void ThreadPool::setTaskMaxSize(const uint32_t maxSize)
     {
         std::lock_guard lock(m_mutex);
-        if (m_isRunning)
+        if (m_isRunning.load(std::memory_order_acquire))
         {
             throw std::runtime_error("Cannot change task size while pool is running");
         }
@@ -39,14 +39,14 @@ namespace Tiny
 
     void ThreadPool::start(const uint32_t numThreads)
     {
-        if (m_isRunning)
+        if (m_isRunning.load(std::memory_order_acquire))
         {
             return;
         }
 
         {
             std::lock_guard lock(m_mutex);
-            m_isRunning = true;
+            m_isRunning.store(true, std::memory_order_release);
             m_threads.reserve(numThreads);
 
             for (uint32_t i = 0; i < numThreads; ++i)
@@ -90,7 +90,7 @@ namespace Tiny
     {
         if (m_threads.empty())
         {
-            if (!m_isRunning)
+            if (!m_isRunning.load(std::memory_order_acquire))
             {
                 throw std::runtime_error("ThreadPool is stopped");
             }
@@ -102,10 +102,10 @@ namespace Tiny
             std::unique_lock lock(m_mutex);
             m_notFull.wait(lock, [this]
             {
-                return !m_isRunning || !isFull();
+                return !m_isRunning.load(std::memory_order_acquire) || !isFull();
             });
 
-            if (!m_isRunning)
+            if (!m_isRunning.load(std::memory_order_acquire))
             {
                 throw std::runtime_error("ThreadPool is stopped");
             }
@@ -120,7 +120,7 @@ namespace Tiny
         std::unique_lock lock(m_mutex);
         m_notEmpty.wait(lock, [this]
         {
-            return !m_tasks.empty() || !m_isRunning;
+            return !m_tasks.empty() || !m_isRunning.load(std::memory_order_acquire);
         });
 
         if (!m_tasks.empty())
@@ -142,13 +142,13 @@ namespace Tiny
                 m_threadInitCallback();
             }
 
-            while (m_isRunning)
+            while (m_isRunning.load(std::memory_order_acquire))
             {
                 if (auto task = take())
                 {
                     task();
                 }
-                else if (!m_isRunning)
+                else if (!m_isRunning.load(std::memory_order_acquire))
                 {
                     break;
                 }
